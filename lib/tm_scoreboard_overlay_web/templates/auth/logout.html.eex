@@ -1,0 +1,5 @@
+<section>
+  <h1>Hello <%= @nickname %>!</h1>
+  <%= link "My account", to: "/me" %>
+  <%= link "Logout", to: "/logout" %>
+</section>

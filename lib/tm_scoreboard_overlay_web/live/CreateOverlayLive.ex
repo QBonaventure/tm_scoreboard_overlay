@@ -1,0 +1,112 @@
+defmodule TMSOWeb.CreateOverlayLive do
+  use Phoenix.LiveView
+  alias __MODULE__
+  alias TMSOWeb.OverlayView
+  alias TMSO.{MatchOverlaySettings,Submatch,MatchSettings,Team,Repo}
+  alias TMSO.Session.AgentStore
+  import Ecto.Query
+
+  def render(assigns) do
+    OverlayView.render("create_overlay.html", assigns)
+  end
+
+  def mount(session, socket) do
+    user = AgentStore.get(session["current_user"])
+    changeset =
+      %MatchOverlaySettings{}
+      |> MatchOverlaySettings.changeset %{user_id: user.id}
+
+    teams = Repo.all(Team)
+
+    available_teams = [{"", ""} | Enum.map(teams, &{&1.name, &1.id})]
+
+    socket =
+      socket
+      |> assign(changeset: changeset)
+      |> assign(teams: teams)
+      |> assign(available_teams: available_teams)
+      |> assign(team_a: nil)
+      |> assign(team_b: nil)
+      |> assign(submatches: [])
+
+    {:ok, socket}
+  end
+
+
+  def handle_event("create-overlay", params, socket) do
+    data = params["match_overlay_settings"]
+    changeset =
+      %MatchOverlaySettings{}
+      |> MatchOverlaySettings.changeset data
+
+    IO.inspect changeset
+
+    case Repo.insert changeset do
+      {:ok, overlay_settings} ->
+        {:noreply, socket}
+      {:error, changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
+    end
+  end
+
+
+  def handle_event("validate", params, socket) do
+    data = params["match_overlay_settings"]
+
+    changeset =
+      %MatchOverlaySettings{}
+      |> MatchOverlaySettings.changeset data
+
+
+    changeset = case Ecto.Changeset.apply_action(changeset, :insert) do
+      {:error, changeset} -> changeset
+      _ -> changeset
+    end
+
+    team_a = Enum.find(socket.assigns.teams, fn map -> Integer.to_string(map.id) == data["team_a_id"] end)
+    team_b = Enum.find(socket.assigns.teams, fn map -> Integer.to_string(map.id) == data["team_b_id"] end)
+
+    submatches =
+      Map.get(data, "submatches", [])
+      |> IO.inspect
+      |> Enum.map(fn {_, sm} ->
+        sm |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
+      end)
+
+    socket =
+     socket
+     |> assign(changeset: changeset)
+     |> assign(team_a: team_a)
+     |> assign(team_b: team_b)
+     |> assign(submatches: submatches)
+
+    {:noreply, socket}
+  end
+
+
+  def handle_event("add-submatch", params, socket) do
+    changeset = socket.assigns.changeset
+    data = changeset.changes
+
+    current_submatches =
+      Map.get(data, :submatches, [])
+      |> Enum.map(fn chgset -> chgset.changes end)
+
+    data = Map.put(data, :submatches, current_submatches ++ [%{}])
+
+    changeset =
+      changeset.data
+      |> MatchOverlaySettings.changeset data
+
+    {:error, changeset} = Ecto.Changeset.apply_action(changeset, :insert)
+
+    changeset
+        socket =
+          socket
+          |> assign(:changeset, changeset)
+          |> assign(submatches: data.submatches)
+
+    {:noreply, socket}
+  end
+
+end

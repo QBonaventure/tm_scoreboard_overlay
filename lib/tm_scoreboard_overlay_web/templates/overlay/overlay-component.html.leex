@@ -1,0 +1,16 @@
+<section id="overlay-preview">
+
+  <div id="submatches-backgrounds">
+    <%= for submatch <- @overlay.submatches do
+      render TMSOWeb.OverlayView, "submatch-bar.html", submatch: submatch
+    end %>
+  </div>
+
+  <img src="/images/overlay-main-bar.png" />
+  <div id="team-logos">
+    <%= img_tag "/#{@overlay.team_a.logo_path}", id: "team-a-logo" %>
+    <%= content_tag :span,  @overlay.team_a.shortname, id: "team-a-shortname" %>
+    <%= img_tag  "/#{@overlay.team_b.logo_path}", id: "team-b-logo" %>
+    <%= content_tag :span, @overlay.team_b.shortname, id: "team-b-shortname" %>
+  </div>
+</section>
