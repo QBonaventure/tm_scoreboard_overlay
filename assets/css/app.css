@@ -272,11 +272,29 @@ div#team-logos {
   width: 593px;
 }
 
+
+div#team-logos div {
+  background-color:
+  rgb(150,0,0,0.5);
+  height: 46px;
+  width: 116px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  left: 1px;
+  display: contents;
+}
+
+div#team-logos div#team-b-logo-container {
+  left: 477px;
+}
+
+
 div#team-logos img {
-  height: 125px;
   position: absolute;
   top: -25px;
-  float: left;
+  width: 24%;
+  left: -2%;
 }
 
 div#team-logos span {
@@ -302,7 +320,7 @@ div#team-logos span {
 }
 
 div#team-logos img#team-b-logo {
-  right: 0;
+  left: 465px;
 }
 
 #team-logos #team-b-shortname {
