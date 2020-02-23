@@ -39,7 +39,6 @@ defmodule TMSOWeb.CreateOverlayLive do
       %MatchOverlaySettings{}
       |> MatchOverlaySettings.changeset data
 
-    IO.inspect changeset
 
     case Repo.insert changeset do
       {:ok, overlay_settings} ->
@@ -68,7 +67,6 @@ defmodule TMSOWeb.CreateOverlayLive do
 
     submatches =
       Map.get(data, "submatches", [])
-      |> IO.inspect
       |> Enum.map(fn {_, sm} ->
         sm |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
       end)
@@ -108,5 +106,42 @@ defmodule TMSOWeb.CreateOverlayLive do
 
     {:noreply, socket}
   end
+
+
+  def handle_event("cancel-form", params, socket) do
+    changeset = MatchOverlaySettings.changeset %MatchOverlaySettings{}
+
+    socket =
+      socket
+      |> assign(changeset: changeset)
+      |> assign(submatches: [])
+
+    {:noreply, socket}
+  end
+
+
+  def handle_event("remove-submatch", params, socket) do
+    index =
+      String.replace(params["smid"], "match_overlay_settings_submatches_", "")
+      |> String.to_integer
+
+    submatches = socket.assigns.submatches |> List.delete_at(index)
+
+    changeset =
+      socket.assigns.changeset
+      |> Map.update!(:changes, fn changes ->
+        Map.update!(changes, :submatches, fn submatches ->
+          new_submatches = List.delete_at(submatches, index)
+        end)
+      end)
+
+    socket =
+      socket
+      |> assign(changeset: changeset)
+      |> assign(submatches: submatches)
+
+    {:noreply, socket}
+  end
+
 
 end

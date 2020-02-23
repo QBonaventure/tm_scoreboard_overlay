@@ -1,7 +1,7 @@
 <% alias Plug.Conn
 alias TMSO.Session.UserSession %>
-<% IO.inspect TMSO.Session.AgentStore.get(@user_session["current_user"]) %>
-<nav role="navigation">
+
+<nav role="session-management">
   <%= case TMSO.Session.AgentStore.get(@user_session["current_user"]) do
     %UserSession{nickname: nickname} ->
       render TMSOWeb.AuthView, "logout.html", nickname: nickname

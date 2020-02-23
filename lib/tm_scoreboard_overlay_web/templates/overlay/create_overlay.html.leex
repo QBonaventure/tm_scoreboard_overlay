@@ -19,34 +19,40 @@ end %>
   </div>
 </section>
 
-<%= f = form_for @changeset, "#", [phx_submit: "create-overlay", phx_change: "validate"] %>
+<%= f = form_for @changeset, "#", [id: "create-overlay", phx_submit: "create-overlay", phx_change: "validate"] %>
 
   <%= hidden_input f, :user_id %>
-  <label>
-    <%= select f, :team_a_id, @available_teams %>
-  </label>
-  <%= error_tag f, :team_a_id %>
 
-  <label>
+  <label id="team_a_selector">
+    <%= select f, :team_a_id, @available_teams, "phx-keyup": "validate-team" %>
+    <%= error_tag f, :team_a_id %>
+  </label>
+
+  <label id="team_b_selector">
     <%= select f, :team_b_id, @available_teams, "phx-keyup": "validate-team" %>
+    <%= error_tag f, :team_b_id %>
   </label>
-  <%= error_tag f, :team_b %>
 
-  <div id="submatches">
+  <div id="create-overlay-submatches-subform">
     <%= inputs_for f, :submatches, fn sm -> %>
-      <label>Tennis Mode?
-        <%= checkbox sm, :tennis_mode %>
-      </label>
-      <label>Max points
-        <%= text_input sm, :max_points %>
-      </label>
-      <label>Players/team
-        <%= select sm, :players_per_team, 1..5 %>
-    </label>
+      <div class="create-overlay-form-submatch">
+        <label class="tennis-mode-label">Tennis Mode?
+          <%= checkbox sm, :tennis_mode %>
+        </label>
+        <label>Max points
+          <%= text_input sm, :max_points, class: "submatch-max-points-input" %>
+        </label>
+        <label>Players/team
+          <%= select sm, :players_per_team, 1..5 %>
+        </label>
+        <%= tag(:input, type: "button", value: "X", phx_click: "remove-submatch", class: "submatch-remover", phx_value_smid: sm.id) %>
+      </div>
     <% end %>
   </div>
-  <%= tag :input, type: "button", value: "Add submatch", "phx-click": "add-submatch" %>
 
-  <%= submit "Submit" %>
-  <%= tag(:input, type: "button", value: "Cancel", phx_click: "cancel-form") %>
+  <div id="create-overlay-form-controls">
+    <%= tag :input, type: "button", value: "Add submatch", "phx-click": "add-submatch" %>
+    <%= submit "Submit" %>
+    <%= tag(:input, type: "button", value: "Cancel", phx_click: "cancel-form", id: "create-overlay-form-cancel-button") %>
+  </div>
 </form>

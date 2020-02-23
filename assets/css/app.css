@@ -5,6 +5,248 @@
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
 
 
+
+/********************************************/
+/*************** MAIN STYLES ****************/
+/********************************************/
+
+a#app-logo {
+  margin: 2px;
+}
+
+div#user-session {
+  text-align: right;
+}
+
+div#user-session h1 {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+nav#main-menu {
+  position: relative;
+  left: 0;
+  width: 600px;
+  height: 26px;
+}
+
+nav#main-menu ul {
+  margin: 0;
+}
+
+nav#main-menu li {
+  float: left;
+  padding: 0 10px;
+}
+
+
+
+/************** CREATE OVERLAY FORM ****************/
+
+form#create-overlay {
+  clear: both;
+}
+
+form#create-overlay label {
+  float: left;
+}
+
+form#create-overlay label.tennis-mode-label {
+  clear: both;
+}
+
+form#create-overlay select#match_overlay_settings_team_a_id,
+form#create-overlay select#match_overlay_settings_team_b_id {
+  width: 200px;
+  height: 30px;
+  padding-right: 28px;
+}
+
+form#create-overlay #match_overlay_settings_team_a_id {
+  left: 25px;
+}
+
+form#create-overlay #match_overlay_settings_team_b_id {
+  left: 436px;
+}
+
+
+label#team_a_selector .help-block {
+  position: relative;
+  top: -22px;
+  left: 50px;
+}
+
+
+label#team_b_selector .help-block {
+  position: relative;
+  top: -22px;
+  left: 358px;
+}
+
+
+
+form#create-overlay input,
+form#create-overlay select {
+  margin: 0;
+  padding: 0;
+  height: 22px;
+  width: 22px;
+  font-size: 14px;
+}
+
+form#create-overlay select {
+  width: 36px;
+}
+
+form#create-overlay input.submatch-max-points-input {
+  text-align: center;
+}
+
+#create-overlay-submatches-subform {
+  position: absolute;
+  top: 210px;
+}
+
+#create-overlay-submatches-subform label,
+#create-overlay-submatches-subform input.submatch-remover {
+  height: 30px;
+  margin-bottom: 10px;
+  margin-right: 25px;
+}
+
+#create-overlay-submatches-subform input.submatch-remover {
+  line-height: 30px;
+}
+
+
+
+div#create-overlay-form-controls {
+  float: right;
+  width: 110px;
+  position: absolute;
+  right: 0px;
+  top: 10px;
+}
+
+
+div#create-overlay-form-controls input,
+div#create-overlay-form-controls button  {
+  width: 110px;
+  height: 32px;
+  margin-bottom: 15px;
+  line-height: 30px;
+  font-size: 10px;
+}
+
+div#create-overlay-form-controls input#create-overlay-form-cancel-button {
+  color: rgb(96, 108, 118);
+  background-color: white;
+}
+
+
+
+
+
+
+
+/*************** LIVE OVERLAY CONTROLS *****************/
+
+section#overlay-control-panel {
+  position: absolute;
+  top: 64px;
+  left: 202px;
+  width: 252px;
+}
+
+section#overlay-control-panel .submatch-controls {
+  width: 100%;
+  clear: both;
+}
+
+section#overlay-control-panel .team-a,
+section#overlay-control-panel .team-b {
+  position: relative;
+  width: 50px;
+  height: 32px;
+}
+
+section#overlay-control-panel .team-a {
+  float: left;
+}
+
+section#overlay-control-panel .team-b {
+  float: right;
+}
+
+
+section#overlay-control-panel input {
+  margin: 0;
+  width: 50px;
+  line-height: 18px;
+  font-size: 10px;
+  padding: 0;
+}
+
+section#overlay-control-panel .add {
+  height: 20px;
+  top: -4px;
+  position: relative;
+}
+
+
+section#overlay-control-panel .substract {
+  height: 10px;
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  background-color: red;
+  border-color: red;
+}
+
+
+
+
+
+
+
+#overlay-main-score {
+  height: 46px;
+  position: absolute;
+  top: -50px;
+  width: 96px;
+  left: 30px;
+}
+
+#overlay-main-score div {
+  height: 100%;
+  width: 47px;
+  position: absolute;
+}
+
+#overlay-main-score div.score-team-b {
+  right: 0;
+}
+
+#overlay-main-score span.score {
+  width: 100%;
+  display: inline-block;
+  font-size: 32px;
+  line-height: 40px;
+  top: -3px;
+  position: relative;
+}
+
+#overlay-main-score .overall-score {
+  font-size: 14px;
+  width: 100%;
+  position: relative;
+  top: -27px;
+}
+
+
+
+
 #match_overlay_settings_team_a_id {
   position: absolute;
   left: 4px;
@@ -50,7 +292,13 @@ div#team-logos span {
 }
 
 #team-logos #team-a-shortname {
-    left: 146px;
+  left: 117px;
+  width: 128px;
+  text-align: center;
+  color:
+  white;
+  text-shadow: 0 0 7px
+  black;
 }
 
 div#team-logos img#team-b-logo {
@@ -58,7 +306,13 @@ div#team-logos img#team-b-logo {
 }
 
 #team-logos #team-b-shortname {
-    right: 146px;
+  right: 116px;
+  width: 128px;
+  text-align: center;
+  color:
+  white;
+  text-shadow: 0 0 7px
+  black;
 }
 
 
@@ -103,5 +357,28 @@ div#team-logos img#team-b-logo {
 
 section#overlays-list {
   clear: both;
-  padding-top: 40px;
+  padding-top: 85px;
+}
+
+
+section#tracker-layer {
+  position: absolute;
+  top: 64px;
+  left: 252px;
+  width: 152px;
+  font-size: 24px;
+  color: white;
+  text-shadow: 0px 0px 5px black;
+}
+
+section div.submatch-points {
+  height: 33px;
+  margin-top: -2px;
+}
+
+
+section#tracker-layer span {
+  display: inline-block;
+  width: 76px;
+  text-align: center;
 }

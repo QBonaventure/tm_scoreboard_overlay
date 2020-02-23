@@ -19,7 +19,7 @@ defmodule TMSO.LiveOverlayStore do
   end
 
   def all() do
-    Agent.update(get_pid(), &(IO.inspect &1))
+    Agent.update(get_pid(), &(&1))
   end
 
   def set_live(overlay) do
@@ -29,7 +29,6 @@ defmodule TMSO.LiveOverlayStore do
   def get_pid, do: :global.whereis_name(@name)
 
   def handle_info({:hello}, state) do
-    IO.inspect "dlkfsmldkfmsldfk"
     {:ok, state}
   end
 

@@ -9,8 +9,33 @@
   <img src="/images/overlay-main-bar.png" />
   <div id="team-logos">
     <%= img_tag "/#{@overlay.team_a.logo_path}", id: "team-a-logo" %>
-    <%= content_tag :span,  @overlay.team_a.shortname, id: "team-a-shortname" %>
+    <%= content_tag :span,  @overlay.team_a.shortname, id: "team-a-shortname", style: "background-color: #{@overlay.team_a.color}" %>
     <%= img_tag  "/#{@overlay.team_b.logo_path}", id: "team-b-logo" %>
-    <%= content_tag :span, @overlay.team_b.shortname, id: "team-b-shortname" %>
+    <%= content_tag :span, @overlay.team_b.shortname, id: "team-b-shortname", style: "background-color: #{@overlay.team_b.color}" %>
   </div>
+</section>
+
+
+<section id="tracker-layer">
+  <div id="overlay-main-score">
+    <% scores = TMSO.PointsTracker.get_team_overall_score(@points_tracker, :team_b) %>
+
+    <div class="score-team-a">
+      <span class="score"><%= scores.team_a.score %></span>
+      <span class="overall-score"><%= scores.team_a.points %></span>
+    </div>
+    <div class="score-team-b">
+      <span class="score"><%= scores.team_b.score %></span>
+      <span class="overall-score"><%= scores.team_b.points %></span>
+    </div>
+  </div>
+  <%= for sm_tracker <- @points_tracker do %>
+    <div class="submatch-points">
+      <span class="team_a">
+        <%= sm_tracker.team_a %>
+      </span><span class="team_b">
+        <%= sm_tracker.team_b %>
+      </span>
+    </div>
+  <% end %>
 </section>

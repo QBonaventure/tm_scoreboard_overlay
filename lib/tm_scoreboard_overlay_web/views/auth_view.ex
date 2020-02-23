@@ -11,13 +11,18 @@ defmodule TMSOWeb.AuthView do
     link ext_service, to: link
   end
 
+  def user_logged_in?(%Conn{} = conn) do
+    case Conn.get_session(conn, :current_user) do
+      nil -> false
+      _key -> true
+    end
+  end
+
   @spec get_session(%Conn{}) :: nil | %UserSession{}
   def get_session(conn) do
-    IO.inspect conn
     case Conn.get_session(conn, :current_user) do
       nil -> nil
       key ->
-        IO.inspect :global.whereis_name(key)
         case session = AgentStore.get(key) do
           nil ->
             UserSession.clear(conn)
