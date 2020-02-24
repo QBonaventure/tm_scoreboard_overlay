@@ -157,6 +157,7 @@ section#overlay-control-panel {
   top: 64px;
   left: 202px;
   width: 252px;
+  z-index: 200;
 }
 
 section#overlay-control-panel .submatch-controls {
@@ -209,6 +210,16 @@ section#overlay-control-panel .substract {
 
 
 
+img#overlay-foreground {
+  z-index: 100;
+  position: relative;
+}
+
+img#overlay-background {
+  position: relative;
+  top: -81px;
+  z-index: 50;
+}
 
 #overlay-main-score {
   height: 46px;
@@ -265,24 +276,22 @@ section#overlay-control-panel .substract {
 div#team-logos {
   float: left;
   position: relative;
-  top: -67px;
+  top: -149px;
   left: 13px;
   height: 46px;
   overflow: hidden;
   width: 593px;
+  z-index: 70;
 }
 
 
 div#team-logos div {
-  background-color:
-  rgb(150,0,0,0.5);
   height: 46px;
   width: 116px;
   overflow: hidden;
   position: absolute;
   top: 0px;
   left: 1px;
-  display: contents;
 }
 
 div#team-logos div#team-b-logo-container {
@@ -293,8 +302,7 @@ div#team-logos div#team-b-logo-container {
 div#team-logos img {
   position: absolute;
   top: -25px;
-  width: 24%;
-  left: -2%;
+  width: 100%;
 }
 
 div#team-logos span {
@@ -306,7 +314,6 @@ div#team-logos span {
 }
 
 #team-logos #team-a-logo {
-  left: -8px;
 }
 
 #team-logos #team-a-shortname {
@@ -319,8 +326,23 @@ div#team-logos span {
   black;
 }
 
+#overlay-preview .team-color {
+  height: 46px;
+  position: absolute;
+  width: 128px;
+  top: 14px;
+  z-index: 50;
+}
+
+#overlay-preview .team-a.team-color {
+  left: 150px;
+}
+
+#overlay-preview .team-b.team-color {
+  left: 382px;
+}
+
 div#team-logos img#team-b-logo {
-  left: 465px;
 }
 
 #team-logos #team-b-shortname {
@@ -387,6 +409,7 @@ section#tracker-layer {
   font-size: 24px;
   color: white;
   text-shadow: 0px 0px 5px black;
+  z-index: 150;
 }
 
 section div.submatch-points {

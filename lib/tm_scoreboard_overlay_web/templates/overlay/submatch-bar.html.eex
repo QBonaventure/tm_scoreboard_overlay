@@ -1,5 +1,5 @@
 <div class="submatch-bar">
-  <%= img_tag "/images/overlay-submatch-bar.png" %>
+  <%= img_tag "/images/overlays/default/submatch-bar.png" %>
   <%= content_tag :span, Map.get(@submatch, :max_points, ""), class: "max-points" %>
   <%= content_tag :span, TMSOWeb.OverlayView.display_match_format(Map.get(@submatch, :players_per_team)), class: "players-per-team" %>
 </div>
