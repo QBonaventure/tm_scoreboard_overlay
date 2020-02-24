@@ -1,3 +1,4 @@
+
 <%= case @overlay do
   nil -> content_tag :span, "There's no live overlay !"
   _ -> live_component @socket, TMSOWeb.OverlayComponent, overlay: @overlay, points_tracker: @points_tracker
@@ -8,6 +9,9 @@ end %>
   _ -> live_component @socket, TMSOWeb.OverlayControllerComponent, overlay: @overlay, points_tracker: @points_tracker
 end %>
 
+<section id="live-link">
+  My live overlay link: <%= link "#{TMSOWeb.Endpoint.url}/#{@overlay.user_id}/live", to: "/#{@overlay.user_id}/live" %>
+</section>
 
 <section id="overlays-list">
   <%= for overlay <- @overlays do

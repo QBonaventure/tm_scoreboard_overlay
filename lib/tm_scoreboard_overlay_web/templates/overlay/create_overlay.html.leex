@@ -1,7 +1,5 @@
-<%
-team_a_logo = case @changeset do
-  _ -> "lkmlk"
-end %>
+
+
 <section id="overlay-preview">
 
   <div id="submatches-backgrounds">
@@ -10,11 +8,21 @@ end %>
     end %>
   </div>
 
-  <img src="images/overlay-main-bar.png" />
+
+  <img src="/images/overlays/default/foreground.png" id="overlay-foreground" />
+  <%= content_tag :div, nil, style: "background-color: #{if @team_a, do: @team_a.color}", class: "team-color team-a" %>
+  <%= content_tag :div, nil, style: "background-color: #{if @team_b, do: @team_b.color}", class: "team-color team-b" %>
+
+  <img src="/images/overlays/default/background.png" id="overlay-background" />
+
   <div id="team-logos">
-    <%= if @team_a, do: img_tag @team_a.logo_path, id: "team-a-logo" %>
+    <div id="team-a-logo-container">
+      <%= if @team_a, do: img_tag @team_a.logo_path, id: "team-a-logo" %>
+    </div>
     <%= if @team_a, do: content_tag :span, @team_a.shortname, id: "team-a-shortname" %>
-    <%= if @team_b, do: img_tag @team_b.logo_path, id: "team-b-logo" %>
+    <div id="team-b-logo-container">
+      <%= if @team_b, do: img_tag @team_b.logo_path, id: "team-b-logo" %>
+    </div>
     <%= if @team_b, do: content_tag :span, @team_b.shortname, id: "team-b-shortname" %>
   </div>
 </section>

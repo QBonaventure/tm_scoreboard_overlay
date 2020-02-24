@@ -16,7 +16,7 @@ defmodule TMSOWeb.CreateOverlayLive do
       %MatchOverlaySettings{}
       |> MatchOverlaySettings.changeset %{user_id: user.id}
 
-    teams = Repo.all(Team)
+    teams = Repo.all(Team) |> Enum.sort_by(& String.downcase(&1.name))
 
     available_teams = [{"", ""} | Enum.map(teams, &{&1.name, &1.id})]
 

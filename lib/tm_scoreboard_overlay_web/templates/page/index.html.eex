@@ -2,3 +2,31 @@
   <h1><%= gettext "Welcome to %{name}!", name: "TMSO" %></h1>
   <p>An team competition overlay for your amazing casts!</p>
 </section>
+
+<section>
+  <h1>What it does</h1>
+  <p><b>TMSO</b> has been created to ease streamers task while casting Trackmania teams competitions.
+    With its prestored team logos, it's <b>only a matter of seconds</b> in between creation of
+    the upcoming match overlay and setting it <b>"live"</b>.
+    <br />
+    <b>No installation, no registration</b>. Log in with your ManiaPlanet account,
+    add your personal "live overlay" page url as a browser source, and let's cast!
+  </p>
+</section>
+
+<section>
+  <h1>How do I use it?</h1>
+
+  <p>First and foremost, <%= link "connect to TMSO", to: Elixir.TMSO.ExternalService.Maniaplanet.authorize_url %>
+    using your ManiaPlanet. We only retrieve your MP username: nothing more, not even your email!.</p>
+  <p>You already can jump into work and <%= link "start creating your first overlay", to: "/create_overlay" %>.
+    It is as simple as selecting the two teams, adding all the necessary submatches, setting points to win, number
+    of players per teams and if it is a tennis mode.</p>
+  <p>Are you done? Okay, let's get to your overlays dashboard. It is there that you'll need to update
+    your overlay as the game is running foward. Straight simple: click on the "+" and "-" buttons next
+    to the current submatch of the overlay preview. Total score? Don't worry, it will be automatically
+    updated! Tennis mode? Automatic! Bonus point for the team which the most rounds? AUTOMATIC! All
+    you need to do is to select which overlay goes "live" by clicking the button next to it!</p>
+  <p>Final step: create a new browser source in your favorite streaming software, and set up your live
+    overlay link. You will found the url ready to be copied on your overlays dashboard. That's all!</p>
+</section>

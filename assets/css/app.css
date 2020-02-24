@@ -395,6 +395,10 @@ div#team-logos img#team-b-logo {
 }
 
 
+section#live-link {
+  clear: both;
+}
+
 section#overlays-list {
   clear: both;
   padding-top: 85px;
