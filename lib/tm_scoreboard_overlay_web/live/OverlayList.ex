@@ -72,7 +72,6 @@ defmodule TMSOWeb.OverlayList do
 
   def handle_event("delete-overlay", params, socket) do
     if socket.assigns.overlay != nil do
-      IO.inspect "LLLLLLLLLLLLLLLLLLLLLLLLLLL"
       user_id = socket.assigns.overlay.user_id
       server = {:global, OverlayController.server_name(user_id)}
       :ok = GenServer.stop(server)
@@ -80,18 +79,18 @@ defmodule TMSOWeb.OverlayList do
       Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:unset_live})
     end
 
-    # changeset =
-    #   get_overlay_by_id(socket.assigns.overlays, params["oid"])
-    #   |> MatchOverlaySettings.changeset
-    #   |> TMSO.Repo.delete
-    #
-    # new_overlays =
-    #   socket.assigns.overlays
-    #   |> Enum.reject(& &1.id == String.to_integer(params["oid"]))
-    #
-    # socket =
-    #   socket
-    #   |> assign(overlays: new_overlays)
+    changeset =
+      get_overlay_by_id(socket.assigns.overlays, params["oid"])
+      |> MatchOverlaySettings.changeset
+      |> TMSO.Repo.delete
+
+    new_overlays =
+      socket.assigns.overlays
+      |> Enum.reject(& &1.id == String.to_integer(params["oid"]))
+
+    socket =
+      socket
+      |> assign(overlays: new_overlays)
 
     {:noreply, socket}
   end
