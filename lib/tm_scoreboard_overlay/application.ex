@@ -14,7 +14,6 @@ defmodule TMSO.Application do
       TMSOWeb.Endpoint,
       # Starts a worker by calling: TMSO.Worker.start_link(arg)
       # {TMSO.Worker, arg},
-      {TMSO.LiveOverlayStore, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
