@@ -20,7 +20,8 @@ defmodule TMSOWeb.OverlayList do
       user -> user.id
     end
 
-    overlays = Repo.all(MatchOverlaySettings) |> Repo.preload([:team_a, :team_b])
+    my_overlays_q = from(o in MatchOverlaySettings, where: o.user_id == ^user_id)
+    overlays = Repo.all(my_overlays_q) |> Repo.preload([:team_a, :team_b])
 
     {live_overlay, points_tracker} =
       case :global.whereis_name(OverlayController.server_name(user_id)) do
