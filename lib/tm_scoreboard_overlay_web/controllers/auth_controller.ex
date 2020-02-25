@@ -5,10 +5,12 @@ defmodule TMSOWeb.AuthController do
   alias TMSO.ExternalService.Maniaplanet
 
   def callback(conn, %{"code" => code, "service" => "maniaplanet", "state" => _state}) do
-    client = Maniaplanet.get_token!([code: code])
-    %{nickname: nickname} = Maniaplanet.get_user(client.token)
-    # service_id = Repo.get_by(User, name: "Maniaplanet").id
-    #
+    %{nickname: nickname} =
+      Maniaplanet.get_token!([code: code])
+      |> Map.get(:token)
+      |> Maniaplanet.get_user
+      |> IO.inspect
+
     user = %User{nickname: nickname}
 
     {conn, message} = UserSession.set_user_session(conn, user)

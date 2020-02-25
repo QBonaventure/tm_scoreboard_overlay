@@ -2,7 +2,7 @@ defmodule TMSOWeb.OverlayList do
   use Phoenix.LiveView
   alias __MODULE__
   alias TMSOWeb.OverlayView
-  alias TMSO.{OverlayController,MatchOverlaySettings,Submatch,MatchSettings,Team,Repo,LiveOverlayStore}
+  alias TMSO.{OverlayController,MatchOverlaySettings,Repo}
   alias TMSO.Session.AgentStore
   alias TMSOWeb.OverlayLive
   import Ecto.Query
@@ -13,7 +13,7 @@ defmodule TMSOWeb.OverlayList do
   end
 
 
-  def mount(params, session, socket) do
+  def mount(_params, session, socket) do
     user_id =
     case AgentStore.get(session["current_user"]) do
       nil -> redirect(socket, to: "/")
@@ -80,10 +80,9 @@ defmodule TMSOWeb.OverlayList do
       Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:unset_live})
     end
 
-    changeset =
-      get_overlay_by_id(socket.assigns.overlays, params["oid"])
-      |> MatchOverlaySettings.changeset
-      |> TMSO.Repo.delete
+    get_overlay_by_id(socket.assigns.overlays, params["oid"])
+    |> MatchOverlaySettings.changeset
+    |> TMSO.Repo.delete
 
     new_overlays =
       socket.assigns.overlays

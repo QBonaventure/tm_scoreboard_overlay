@@ -7,6 +7,7 @@ defmodule TMSO.OverlayController do
   def server_name(%MatchOverlaySettings{} = overlay), do: {:overlay_controller, overlay.user_id}
   def server_name(user_id) when is_integer(user_id) , do: {:overlay_controller, user_id}
 
+
   def start(overlay) do
     server_name = server_name overlay
     pid = :global.whereis_name(server_name)
