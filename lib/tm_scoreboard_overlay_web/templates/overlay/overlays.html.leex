@@ -10,7 +10,9 @@ end %>
 end %>
 
 <section id="live-link">
-  My live overlay link: <%= link "#{TMSOWeb.Endpoint.url}/#{List.first(@overlays).user_id}/live", to: "/#{List.first(@overlays).user_id}/live" %>
+  <%= if @overlays != [] do %>
+    My live overlay link: <%= link "#{TMSOWeb.Endpoint.url}/#{List.first(@overlays).user_id}/live", to: "/#{List.first(@overlays).user_id}/live" %>
+  <% end %>
 </section>
 
 <section id="overlays-list">
