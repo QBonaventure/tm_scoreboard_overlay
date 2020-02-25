@@ -41,6 +41,10 @@ defmodule TMSO.OverlayController do
   def tennis_mode_win?(submatch), do: diff = submatch.team_a - submatch.team_b
 
 
+  def handle_call({:get_overlay_id}, _from, state) do
+    {:reply, state.overlay.id, state}
+  end
+
 
   def handle_call({:get_overlay_state}, _from, state) do
     {:reply, state, state}

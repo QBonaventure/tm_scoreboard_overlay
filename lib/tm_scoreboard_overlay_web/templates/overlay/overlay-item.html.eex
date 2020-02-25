@@ -1,4 +1,5 @@
 <div>
   <%= tag :input, type: "button", value: "Set live!", "phx-click": "set-live-overlay", "phx-value-oid": @overlay.id %>
+  <%= tag :input, type: "button", value: "Delete", "phx-click": "delete-overlay", "phx-value-oid": @overlay.id %>
   <%= "#{@overlay.team_a.name} / #{@overlay.team_b.name}" %>
 <div>

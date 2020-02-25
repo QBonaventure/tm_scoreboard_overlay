@@ -25,7 +25,6 @@ defmodule TMSOWeb.Router do
 
     live "/create_overlay", CreateOverlayLive
     live "/overlays", OverlayList
-      live "/create_overlay", CreateOverlayLive
 
     get "/logout", AuthController, :logout
     get "/auth/:service/callback", AuthController, :callback

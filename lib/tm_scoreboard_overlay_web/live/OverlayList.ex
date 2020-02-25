@@ -70,18 +70,47 @@ defmodule TMSOWeb.OverlayList do
   end
 
 
+  def handle_event("delete-overlay", params, socket) do
+    if socket.assigns.overlay != nil do
+      IO.inspect "LLLLLLLLLLLLLLLLLLLLLLLLLLL"
+      user_id = socket.assigns.overlay.user_id
+      server = {:global, OverlayController.server_name(user_id)}
+      :ok = GenServer.stop(server)
+      socket = assign(socket, overlay: nil)
+      Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:unset_live})
+    end
+
+    # changeset =
+    #   get_overlay_by_id(socket.assigns.overlays, params["oid"])
+    #   |> MatchOverlaySettings.changeset
+    #   |> TMSO.Repo.delete
+    #
+    # new_overlays =
+    #   socket.assigns.overlays
+    #   |> Enum.reject(& &1.id == String.to_integer(params["oid"]))
+    #
+    # socket =
+    #   socket
+    #   |> assign(overlays: new_overlays)
+
+    {:noreply, socket}
+  end
+
+
+  def get_overlay_by_id(overlays, oid), do:
+    Enum.find(overlays, &Integer.to_string(&1.id) == oid)
+
+
   def handle_event("set-live-overlay", params, socket) do
-    live_ov = Enum.find(socket.assigns.overlays, &Integer.to_string(&1.id) == params["oid"])
+    live_ov = get_overlay_by_id(socket.assigns.overlays, params["oid"])
 
     OverlayController.start live_ov
-
     Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:overlay_set_live, live_ov})
 
     socket =
       socket
       |> assign(:overlay, live_ov)
       |> assign(points_tracker: [])
-
 
     {:noreply, socket}
   end

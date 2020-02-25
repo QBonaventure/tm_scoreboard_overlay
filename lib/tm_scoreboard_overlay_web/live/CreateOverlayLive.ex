@@ -42,6 +42,16 @@ defmodule TMSOWeb.CreateOverlayLive do
 
     case Repo.insert changeset do
       {:ok, overlay_settings} ->
+        IO.inspect changeset
+        changeset =
+          %MatchOverlaySettings{}
+          |> MatchOverlaySettings.changeset %{user_id: changeset.changes.user_id}
+        socket =
+          socket
+          |> assign(changeset: changeset)
+          |> assign(team_a: nil)
+          |> assign(team_b: nil)
+          |> assign(submatches: [])
         {:noreply, socket}
       {:error, changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

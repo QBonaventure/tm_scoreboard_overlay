@@ -36,6 +36,15 @@ defmodule TMSOWeb.OverlayLive do
   end
 
 
+  def handle_info({:unset_live}, socket) do
+    socket =
+      socket
+      |> assign(overlay: nil)
+      |> assign(points_tracker: [])
+    {:noreply, socket}
+  end
+
+
   def handle_info({:overlay_set_live, overlay}, socket) do
     socket =
       socket
