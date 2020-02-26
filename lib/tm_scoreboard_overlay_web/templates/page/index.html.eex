@@ -1,12 +1,12 @@
 <section class="phx-hero">
   <h1><%= gettext "Welcome to %{name}!", name: "TMSO" %></h1>
-  <p>An team competition overlay for your amazing casts!</p>
+  <p>A team competition overlay for your amazing casts!</p>
 </section>
 
 <section>
   <h1>What it does</h1>
   <p><b>TMSO</b> has been created to ease streamers task while casting Trackmania teams competitions.
-    With its prestored team logos, it's <b>only a matter of seconds</b> in between creation of
+    With its prestored team logos, it is <b>only a matter of seconds</b> in between creation of
     the upcoming match overlay and setting it <b>"live"</b>.
     <br />
     <b>No installation, no registration</b>. Log in with your ManiaPlanet account,
