@@ -10,6 +10,32 @@
 /*************** MAIN STYLES ****************/
 /********************************************/
 
+
+html {
+  background-color: #e9dfc0;
+}
+
+body {
+  margin: 0;
+  background-color: #666;
+}
+
+body > header {
+  margin: 0;
+}
+
+
+main {
+  background-color: white;
+}
+
+
+.container {
+  padding: 0 2.0rem 1rem;
+  width: 90rem;
+}
+
+
 a#app-logo {
   margin: 2px;
 }
@@ -39,7 +65,45 @@ nav#main-menu li {
   padding: 0 10px;
 }
 
+body > footer {
+  background-color: #e9dfc0;
+  border-top: 4px solid #991b15;
+  /* -webkit-box-shadow: 0px 7px 36px 0px rgba(81,0,0,0.62);
+  -moz-box-shadow: 0px 7px 36px 0px rgba(81,0,0,0.62);
+  box-shadow: 0px 7px 36px 0px rgba(81,0,0,0.62); */
+}
 
+body > footer div.container {
+  padding: 20px 0;
+}
+
+img#fearthec-footer-logo {
+  width: 170px;
+  border-right: 1px solid #666;
+  padding-right: 20px;
+  padding: 10px 20px 10px 0px;
+}
+
+div#footer-tech-stacks {
+  width: 158px;
+  float: right;
+  padding: 10px 0px 10px 20px;
+  right: 0;
+  top: 20px;
+  border-left: 1px solid #666;
+}
+
+img#elixir-logo {
+  max-width: 52%;
+}
+
+
+
+html#overlay-live,
+html#overlay-live body,
+html#overlay-live main {
+  background-color: rgba(0, 0, 0, 0);
+}
 
 /************** CREATE OVERLAY FORM ****************/
 
@@ -72,16 +136,16 @@ form#create-overlay #match_overlay_settings_team_b_id {
 
 
 label#team_a_selector .help-block {
-  position: relative;
-  top: -22px;
-  left: 50px;
+  position: absolute;
+  top: 105px;
+  left: 70px;
 }
 
 
 label#team_b_selector .help-block {
-  position: relative;
-  top: -22px;
-  left: 358px;
+  position: absolute;
+  top: 105px;
+  left: 480px;
 }
 
 
@@ -103,10 +167,10 @@ form#create-overlay input.submatch-max-points-input {
   text-align: center;
 }
 
-#create-overlay-submatches-subform {
+/* #create-overlay-submatches-subform {
   position: absolute;
   top: 210px;
-}
+} */
 
 #create-overlay-submatches-subform label,
 #create-overlay-submatches-subform input.submatch-remover {
@@ -357,10 +421,10 @@ div#team-logos img#team-b-logo {
 
 
 #submatches-backgrounds {
-  float: left;
-  position: absolute;
-  top: 64px;
-  left: 250px;
+  /* float: left; */
+  position: relative;
+  top: -145px;
+  left: 230px;
   width: 156px
 }
 

@@ -1,11 +1,5 @@
 <section id="overlay-preview">
 
-  <div id="submatches-backgrounds">
-    <%= for submatch <- @overlay.submatches do
-      render TMSOWeb.OverlayView, "submatch-bar.html", submatch: submatch
-    end %>
-  </div>
-
   <img src="/images/overlays/default/foreground.png" id="overlay-foreground" />
   <%= content_tag :div, nil, style: "background-color: #{@overlay.team_a.color}", class: "team-color team-a" %>
   <%= content_tag :div, nil, style: "background-color: #{@overlay.team_b.color}", class: "team-color team-b" %>
@@ -21,6 +15,12 @@
     </div>
     <%= content_tag :span, @overlay.team_b.shortname, id: "team-b-shortname" %>
   </div>
+
+    <div id="submatches-backgrounds">
+      <%= for submatch <- @overlay.submatches do
+        render TMSOWeb.OverlayView, "submatch-bar.html", submatch: submatch
+      end %>
+    </div>
 </section>
 
 

@@ -35,4 +35,14 @@
       <%= render @view_module, @view_template, assigns %>
     </main>
   </body>
+  <footer>
+    <div class="container">
+      <img id="fearthec-footer-logo" src="https://fearthec-documentations.s3.eu-west-3.amazonaws.com/images/ftc-logo.png" />
+
+      <div id="footer-tech-stacks">
+          <img src="images/official_Elixir_logo.png" id="elixir-logo" />
+        <img src="images/phoenix-framework.png" id="phoenix-logo" />
+      </div>
+    </div>
+  </footer>
 </html>
