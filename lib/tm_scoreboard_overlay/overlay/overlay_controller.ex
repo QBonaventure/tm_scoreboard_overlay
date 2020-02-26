@@ -22,7 +22,7 @@ defmodule TMSO.OverlayController do
 
 
   def update_points(trackers, smid, team, point_diff) do
-    trackers
+    trackers = trackers
     |> Enum.map(fn submatch ->
       case submatch.smid == smid do
         true ->

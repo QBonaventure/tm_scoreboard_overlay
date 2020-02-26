@@ -25,7 +25,7 @@ defmodule TMSOWeb.OverlayLive do
           {overlay_state.overlay, overlay_state.points_tracker}
       end
 
-    Phoenix.PubSub.subscribe(TMSO.PubSub, self(), topic())
+    Phoenix.PubSub.subscribe(TMSO.PubSub, topic())
 
     socket =
       socket
@@ -45,11 +45,12 @@ defmodule TMSOWeb.OverlayLive do
   end
 
 
-  def handle_info({:overlay_set_live, overlay}, socket) do
-    socket =
-      socket
-      |> assign(overlay: overlay)
-      |> assign(points_tracker: [])
+  def handle_info({:overlay_set_live}, socket) do
+    # IO.inspect "kljlkjlkj"
+    # socket =
+    #   socket
+    #   |> assign(overlay: overlay)
+    #   |> assign(points_tracker: [])
     {:noreply, socket}
   end
 

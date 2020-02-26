@@ -3,7 +3,7 @@ defmodule TMSOWeb.OverlayList do
   alias __MODULE__
   alias TMSOWeb.OverlayView
   alias TMSO.{OverlayController,MatchOverlaySettings,Repo}
-  alias TMSO.Session.AgentStore
+  alias TMSO.Session.{AgentStore, UserSession}
   alias TMSOWeb.OverlayLive
   import Ecto.Query
 
@@ -14,17 +14,18 @@ defmodule TMSOWeb.OverlayList do
 
 
   def mount(_params, session, socket) do
-    user_id =
     case AgentStore.get(session["current_user"]) do
-      nil -> redirect(socket, to: "/")
-      user -> user.id
+      nil -> {:ok, redirect(socket, to: "/")}
+      user -> mount(socket, user)
     end
+  end
 
-    my_overlays_q = from(o in MatchOverlaySettings, where: o.user_id == ^user_id)
+  def mount(socket, %UserSession{} = user) do
+    my_overlays_q = from(o in MatchOverlaySettings, where: o.user_id == ^user.id)
     overlays = Repo.all(my_overlays_q) |> Repo.preload([:team_a, :team_b])
 
     {live_overlay, points_tracker} =
-      case :global.whereis_name(OverlayController.server_name(user_id)) do
+      case :global.whereis_name(OverlayController.server_name(user.id)) do
         :undefined ->
           {nil, []}
         pid ->
@@ -40,8 +41,6 @@ defmodule TMSOWeb.OverlayList do
 
     {:ok, socket}
   end
-
-
 
 
 
@@ -67,6 +66,7 @@ defmodule TMSOWeb.OverlayList do
       {:substractpoint, smid, team}
     )
 
+    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:trackers_update, new_state.points_tracker})
     {:noreply, assign(socket, points_tracker: new_state.points_tracker)}
   end
 
@@ -105,7 +105,7 @@ defmodule TMSOWeb.OverlayList do
 
     OverlayController.start live_ov
     Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:overlay_set_live, live_ov})
-
+|> IO.inspect
     socket =
       socket
       |> assign(:overlay, live_ov)
