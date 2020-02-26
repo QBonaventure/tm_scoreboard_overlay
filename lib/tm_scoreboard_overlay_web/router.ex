@@ -11,7 +11,7 @@ defmodule TMSOWeb.Router do
   end
 
   pipeline :blog do
-    plug :put_layout, {TMSOWeb.LayoutView, "blog.html"}
+    plug :put_layout, {TMSOWeb.LayoutView, "overlay-live.html"}
   end
 
   pipeline :api do
