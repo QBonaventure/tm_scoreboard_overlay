@@ -12,14 +12,12 @@
   <body>
     <header>
       <div class="container">
-        <section id="container">
-          <div id="user-session">
-            <%= live_render(@conn, TMSOWeb.UserSessionLive) %>
-          </div>
-          <a href="/" id="app-logo">
-            Trackmania Stream Overlay
-          </a>
-        </section>
+        <div id="user-session">
+          <%= live_render(@conn, TMSOWeb.UserSessionLive) %>
+        </div>
+        <a href="/" id="app-logo">
+          Trackmania Stream Overlay
+        </a>
 
         <%= if TMSOWeb.AuthView.user_logged_in? @conn do %>
           <nav id="main-menu">

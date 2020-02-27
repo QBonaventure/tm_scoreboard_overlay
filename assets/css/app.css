@@ -24,11 +24,32 @@ body > header {
   margin: 0;
   background-color: #e9dfc0;
   border-bottom: 4px solid #991b15;
+  height:60px;
 }
 
 body > header a {
   color: #666;
   font-weight: bold;
+}
+
+header #app-logo {
+  color: black;
+}
+
+header #user-session {
+  height: 60px;
+  background-color: #991b15;
+  float: right;
+  padding: 5px;
+  color: white;
+}
+
+header #user-session a {
+  color: white;
+}
+
+header nav#main-menu {
+  margin-top: 7px;
 }
 
 
