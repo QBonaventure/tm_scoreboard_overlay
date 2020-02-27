@@ -4,7 +4,10 @@
 
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
 
-
+:root {
+  --ftc-red-color: #991b15;
+  --ftc-white-color: #e9dfc0;
+}
 
 /********************************************/
 /*************** MAIN STYLES ****************/
@@ -12,18 +15,18 @@
 
 
 html {
-  /* background-color: #e9dfc0; */
+  background-color: var(--ftc-white-color);
 }
 
 body {
   margin: 0;
-  /* background-color: #666; */
+  background-color: white;
 }
 
 body > header {
   margin: 0;
-  background-color: #e9dfc0;
-  border-bottom: 4px solid #991b15;
+  background-color: var(--ftc-white-color);
+  border-bottom: 4px solid var(--ftc-red-color);
   height:60px;
 }
 
@@ -38,7 +41,7 @@ header #app-logo {
 
 header #user-session {
   height: 60px;
-  background-color: #991b15;
+  background-color: var(--ftc-red-color);
   float: right;
   padding: 5px;
   color: white;
@@ -94,11 +97,8 @@ nav#main-menu li {
 }
 
 body > footer {
-  background-color: #e9dfc0;
-  border-top: 4px solid #991b15;
-  /* -webkit-box-shadow: 0px 7px 36px 0px rgba(81,0,0,0.62);
-  -moz-box-shadow: 0px 7px 36px 0px rgba(81,0,0,0.62);
-  box-shadow: 0px 7px 36px 0px rgba(81,0,0,0.62); */
+  background-color: var(--ftc-white-color);
+  border-top: 4px solid var(--ftc-red-color);
 }
 
 body > footer div.container {
