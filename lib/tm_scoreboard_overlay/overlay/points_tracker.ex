@@ -1,39 +1,38 @@
 defmodule TMSO.PointsTracker do
 
-  def get_team_overall_score(trackers, team) do
-    scores = %{team_a: 0, team_b: 0}
+  def get_teams_score_results(trackers) do
+      %{team_a: %{points: 0, score: 0}, team_b: %{points: 0, score: 0}}
+      |> calculate_points(trackers)
+      |> grant_overall_points_bonus
+  end
 
-    {_, team_a_points} =
-      Enum.map_reduce(trackers, 0, fn tracker, team_a_points ->
-        {0, Map.get(tracker, :team_a) + team_a_points}
-      end)
 
-    {_, team_b_points} =
-      Enum.map_reduce(trackers, 0, fn tracker, team_b_points ->
-        {0, Map.get(tracker, :team_b) + team_b_points}
-      end)
+  defp calculate_points(results, trackers) do
+    Enum.map_reduce(trackers, results, fn tracker, acc ->
+      acc =
+        acc
+        |> Kernel.put_in([:team_a, :points], acc.team_a.points + Map.get(tracker, :team_a))
+        |> Kernel.put_in([:team_b, :points], acc.team_b.points + Map.get(tracker, :team_b))
 
-    {submatches_ended?, %{team_a: team_a_wins, team_b: team_b_wins}} =
-      Enum.map_reduce(trackers, %{team_a: 0, team_b: 0}, fn tracker, acc ->
+      acc =
         case Map.get(tracker, :winner, nil) do
           nil -> {false, acc}
-          team -> {true, Map.put(acc, team, Map.get(acc, team) + 1)}
+          winner -> {true, Kernel.put_in(acc, [winner, :score], acc[winner][:score] + 1)}
         end
-      end)
+    end)
+  end
 
-    {team_a_wins, team_b_wins} =
-    case Enum.all?(submatches_ended?, & &1) and team_a_points != team_b_points do
-      true ->
-        case team_a_points > team_b_points do
-          true -> {team_a_wins + 1, team_b_wins}
-          false -> {team_a_wins, team_b_wins + 1}
-        end
+
+  defp grant_overall_points_bonus({ended?, results}) do
+    case Enum.all?(ended?, & &1) and results.team_a.points != results.team_b.points do
       false ->
-        {team_a_wins, team_b_wins} 
+        results
+      true ->
+        case results.team_a.points > results.team_b.points do
+          true -> Kernel.put_in(results, [:team_a, :score], results.team_a.score + 1)
+          false -> Kernel.put_in(results, [:team_b, :score], results.team_b.score + 1)
+        end
     end
-
-
-    %{team_a: %{points: team_a_points, score: team_a_wins}, team_b: %{points: team_b_points, score: team_b_wins}}
   end
 
 end

@@ -26,15 +26,15 @@
 
 <section id="tracker-layer">
   <div id="overlay-main-score">
-    <% scores = TMSO.PointsTracker.get_team_overall_score(@points_tracker, :team_b) %>
+    <% results = TMSO.PointsTracker.get_teams_score_results(@points_tracker) %>
 
     <div class="score-team-a">
-      <span class="score"><%= scores.team_a.score %></span>
-      <span class="overall-score"><%= scores.team_a.points %></span>
+      <span class="score"><%= results.team_a.score %></span>
+      <span class="overall-score"><%= results.team_a.points %></span>
     </div>
     <div class="score-team-b">
-      <span class="score"><%= scores.team_b.score %></span>
-      <span class="overall-score"><%= scores.team_b.points %></span>
+      <span class="score"><%= results.team_b.score %></span>
+      <span class="overall-score"><%= results.team_b.points %></span>
     </div>
   </div>
   <%= for sm_tracker <- @points_tracker do %>
