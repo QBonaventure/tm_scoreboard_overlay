@@ -11,23 +11,25 @@
   </head>
   <body>
     <header>
-      <section id="container">
-        <div id="user-session">
-          <%= live_render(@conn, TMSOWeb.UserSessionLive) %>
-        </div>
-        <a href="/" id="app-logo">
-          Trackmania Stream Overlay
-        </a>
-      </section>
+      <div class="container">
+        <section id="container">
+          <div id="user-session">
+            <%= live_render(@conn, TMSOWeb.UserSessionLive) %>
+          </div>
+          <a href="/" id="app-logo">
+            Trackmania Stream Overlay
+          </a>
+        </section>
 
-      <%= if TMSOWeb.AuthView.user_logged_in? @conn do %>
-        <nav id="main-menu">
-          <ul>
-            <li><a href="/overlays">My overlays</a></li>
-            <li><a href="/create_overlay">Create an overlay</a></li>
-          </ul>
-        </nav>
-      <% end %>
+        <%= if TMSOWeb.AuthView.user_logged_in? @conn do %>
+          <nav id="main-menu">
+            <ul>
+              <li><a href="/overlays">My overlays</a></li>
+              <li><a href="/create_overlay">Create an overlay</a></li>
+            </ul>
+          </nav>
+        <% end %>
+      </div>
     </header>
     <main role="main" class="container">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

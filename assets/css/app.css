@@ -12,16 +12,23 @@
 
 
 html {
-  background-color: #e9dfc0;
+  /* background-color: #e9dfc0; */
 }
 
 body {
   margin: 0;
-  background-color: #666;
+  /* background-color: #666; */
 }
 
 body > header {
   margin: 0;
+  background-color: #e9dfc0;
+  border-bottom: 4px solid #991b15;
+}
+
+body > header a {
+  color: #666;
+  font-weight: bold;
 }
 
 
