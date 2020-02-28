@@ -72,6 +72,8 @@ defmodule TMSOWeb.CreateOverlayLive do
       _ -> changeset
     end
 
+    IO.inspect changeset
+
     team_a = Enum.find(socket.assigns.teams, fn map -> Integer.to_string(map.id) == data["team_a_id"] end)
     team_b = Enum.find(socket.assigns.teams, fn map -> Integer.to_string(map.id) == data["team_b_id"] end)
 

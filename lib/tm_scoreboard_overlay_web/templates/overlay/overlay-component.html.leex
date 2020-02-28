@@ -21,6 +21,19 @@
         render TMSOWeb.OverlayView, "submatch-bar.html", submatch: submatch
       end %>
     </div>
+
+    <%= if assigns[:map_info] do
+      content_tag :span, @map_info.name, class: "live-overlay-map-name"
+    end %>
+
+    <%= if assigns[:map_info] do
+      content_tag :span, TMSO.ExternalService.Maniaplanet.time_format(@map_info.world_record), class: "live-overlay-world-record"
+    end %>
+
+    <%= if assigns[:map_info] do
+      content_tag :span, TMSO.ExternalService.Maniaplanet.parse_text_to_html(@map_info.wr_holder), class: "live-overlay-world-record-holder"
+    end %>
+
 </section>
 
 

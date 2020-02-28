@@ -66,4 +66,86 @@ defmodule TMSO.ExternalService.Maniaplanet do
     end).()
   end
 
+  def set_color_tags(string, string), do: string
+  def set_color_tags(_previous, string) do
+    new = Regex.replace(~r/(.*)\$([[:xdigit:]]{3})(.*)/u, string, "\\1<span style=\"color: #\\2\">\\3")
+    set_color_tags(string, new)
+  end
+  def set_color_tags(string), do: set_color_tags(nil, string)
+
+
+  def set_other_tags(string), do: set_other_tags nil, string
+  def set_other_tags(string, string), do: string
+  def set_other_tags(_previous, string) do
+    elmt_idx =
+      Regex.scan(~r/(?<!\$)(\$(o|i|u|w|n|t|g|z))/u, string, capture: :first, return: :index)
+      |> Enum.map(& Kernel.elem(List.first(&1), 0))
+      |> Enum.reverse
+    elmt =
+      Regex.scan(~r/(?<!\$)(\$(o|i|u|w|n|t))/, string)
+      |> Enum.reverse
+      |> Enum.map &(List.first &1)
+
+    {_, {_, new_string}} =
+      Enum.map_reduce(elmt_idx, {0, string}, fn idx, acc ->
+        string_splits = String.split_at(Kernel.elem(acc, 1), idx)
+        elmt_to_replace = Enum.at(elmt, Kernel.elem(acc, 0))
+
+        string = Kernel.elem(string_splits, 0) <>
+          String.replace_leading(
+            Kernel.elem(string_splits, 1),
+            elmt_to_replace,
+            get_replacement(elmt_to_replace))
+
+        {idx, {Kernel.elem(acc, 0) + 1, string}}
+      end)
+
+    new_string
+  end
+
+  defp get_replacement(mp_tag) do
+    class_name =
+      case mp_tag do
+        "$i" -> "italic"
+        "$o" -> "bold"
+        "$n" -> "narrow"
+        "$t" -> "uppercase"
+        "$s" -> "drop-shadow"
+        "$w" -> "wide"
+      end
+    "<span class=\"#{class_name}\">"
+  end
+
+  def parse_text_to_html(text) do
+    text
+    |> set_color_tags
+    |> IO.inspect
+    |> set_other_tags
+    |> IO.inspect
+    |> Phoenix.HTML.raw
+  end
+
+  def time_format(ms_time) when is_list(ms_time), do: time_format(List.to_string(ms_time))
+  def time_format(ms_time) when is_binary(ms_time) do
+    [hour, min, sec, ms] =
+      Regex.scan(~r/([0-9]{2})?([0-9]{2})?([0-9]{2})([0-9]{3})/, ms_time, capture: :all_but_first)
+      |> List.flatten
+      |> Enum.map(fn time_slice ->
+          case time_slice do
+            "" -> 0
+            _ -> String.to_integer time_slice
+          end
+        end)
+
+    {:ok, time} = Time.new(hour, min, sec, ms*1000)
+
+    {time, _} =
+      time
+      |> Time.to_string
+      |> String.replace_leading("00:", "")
+      |> String.split_at(-3)
+
+      time
+  end
+
 end

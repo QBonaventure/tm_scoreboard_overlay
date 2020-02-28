@@ -1,6 +1,5 @@
 defmodule TMSOWeb.OverlayList do
   use Phoenix.LiveView
-  alias __MODULE__
   alias TMSOWeb.OverlayView
   alias TMSO.{OverlayController,MatchOverlaySettings,Repo}
   alias TMSO.Session.{AgentStore, UserSession}
@@ -41,6 +40,10 @@ defmodule TMSOWeb.OverlayList do
 
     {:ok, socket}
   end
+
+
+  def get_overlay_by_id(overlays, oid), do:
+    Enum.find(overlays, &Integer.to_string(&1.id) == oid)
 
 
 
@@ -96,21 +99,27 @@ defmodule TMSOWeb.OverlayList do
   end
 
 
-  def get_overlay_by_id(overlays, oid), do:
-    Enum.find(overlays, &Integer.to_string(&1.id) == oid)
-
-
   def handle_event("set-live-overlay", params, socket) do
     live_ov = get_overlay_by_id(socket.assigns.overlays, params["oid"])
 
     OverlayController.start live_ov
     Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:overlay_set_live, live_ov})
-|> IO.inspect
+
     socket =
       socket
       |> assign(:overlay, live_ov)
       |> assign(points_tracker: [])
 
+    {:noreply, socket}
+  end
+
+  def handle_event("activate-submatch", params, socket) do
+    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:activate_submatch, params["smid"]})
+
+    upd_tracker =
+      socket.assigns.points_tracker
+      |> Enum.map(&Map.put(&1, :active?, &1.smid == params["smid"]))
+    assign(socket, points_tracker: upd_tracker)
     {:noreply, socket}
   end
 

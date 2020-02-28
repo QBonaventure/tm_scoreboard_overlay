@@ -133,6 +133,39 @@ html#overlay-live main {
   background-color: rgba(0, 0, 0, 0);
 }
 
+span.live-overlay-world-record-holder {
+  position: absolute;
+  top: 63px;
+  left: 480px;
+  background: rgba(10, 10, 10, 0.6);
+  padding: 3px 7px 2px;
+  border-radius: 0 14% 35% 0;
+}
+
+span.live-overlay-world-record {
+  position: absolute;
+  top: 64px;
+  right: 320px;
+  padding: 2px 4px;
+  border-right: 1px solid
+  lightgray;
+  background-color: rgba(10, 10, 10, 0.6);
+  border-radius: 0 0 0 35%;
+  color:
+  white;
+}
+
+span.live-overlay-map-name {
+  position: absolute;
+  right: 567px;
+  padding: 2px 4px;
+  top: 64px;
+  background-color: rgba(10, 10, 10, 0.6);
+  color:
+  white;
+  border-radius: 0 0 25% 25%;
+}
+
 /************** CREATE OVERLAY FORM ****************/
 
 form#create-overlay {
@@ -236,7 +269,9 @@ div#create-overlay-form-controls input#create-overlay-form-cancel-button {
   background-color: white;
 }
 
-
+form#create-overlay input.submatch-map-input {
+  width: 80px;
+}
 
 
 
@@ -255,6 +290,21 @@ section#overlay-control-panel {
 section#overlay-control-panel .submatch-controls {
   width: 100%;
   clear: both;
+  position: relative;
+}
+
+.submatch-map-name {
+  width: 125px;
+  position: absolute;
+  left: 255px;
+  white-space: nowrap;
+}
+
+section#overlay-control-panel input.activate-sm-button {
+  position: absolute;
+  left: -72px;
+  height: 30px;
+  width: 70px;
 }
 
 section#overlay-control-panel .team-a,
@@ -296,7 +346,6 @@ section#overlay-control-panel .substract {
   background-color: red;
   border-color: red;
 }
-
 
 
 

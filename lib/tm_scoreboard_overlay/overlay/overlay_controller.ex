@@ -90,7 +90,6 @@ defmodule TMSO.OverlayController do
           ^team -> Map.delete(submatch, :winner)
         end
       end)
-      |> IO.inspect
 
     Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:trackers_update, updated_sm})
     state = Map.put(state, :points_tracker, updated_sm)

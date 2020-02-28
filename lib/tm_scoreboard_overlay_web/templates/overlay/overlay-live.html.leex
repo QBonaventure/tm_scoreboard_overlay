@@ -1,4 +1,5 @@
 <%= case @overlay do
   nil -> content_tag :span, "There's no live overlay !"
-  _ -> live_component @socket, TMSOWeb.OverlayComponent, overlay: @overlay, points_tracker: @points_tracker
+  _ -> live_component @socket, TMSOWeb.OverlayComponent,
+        overlay: @overlay, points_tracker: @points_tracker, map_info: @map_info
 end %>
