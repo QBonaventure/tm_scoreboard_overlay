@@ -9,7 +9,6 @@ defmodule TMSOWeb.AuthController do
       Maniaplanet.get_token!([code: code])
       |> Map.get(:token)
       |> Maniaplanet.get_user
-      |> IO.inspect
 
     user = %User{nickname: nickname}
 

@@ -119,9 +119,7 @@ defmodule TMSO.ExternalService.Maniaplanet do
   def parse_text_to_html(text) do
     text
     |> set_color_tags
-    |> IO.inspect
     |> set_other_tags
-    |> IO.inspect
     |> Phoenix.HTML.raw
   end
 

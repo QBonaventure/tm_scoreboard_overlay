@@ -52,7 +52,6 @@ defmodule TMSOWeb.OverlayLive do
       |> TMX.get_map
 
     world_record = Dedimania.get_world_record(map.uid)
-IO.inspect world_record.time
     map_info = %{
       name: map.name,
       author: map.author,

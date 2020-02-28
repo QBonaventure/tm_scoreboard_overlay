@@ -42,7 +42,6 @@ defmodule TMSOWeb.CreateOverlayLive do
 
     case Repo.insert changeset do
       {:ok, overlay_settings} ->
-        IO.inspect changeset
         changeset =
           %MatchOverlaySettings{}
           |> MatchOverlaySettings.changeset %{user_id: changeset.changes.user_id}
@@ -66,13 +65,10 @@ defmodule TMSOWeb.CreateOverlayLive do
       %MatchOverlaySettings{}
       |> MatchOverlaySettings.changeset data
 
-
     changeset = case Ecto.Changeset.apply_action(changeset, :insert) do
       {:error, changeset} -> changeset
       _ -> changeset
     end
-
-    IO.inspect changeset
 
     team_a = Enum.find(socket.assigns.teams, fn map -> Integer.to_string(map.id) == data["team_a_id"] end)
     team_b = Enum.find(socket.assigns.teams, fn map -> Integer.to_string(map.id) == data["team_b_id"] end)
