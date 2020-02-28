@@ -45,12 +45,11 @@ defmodule TMSOWeb.OverlayLive do
   end
 
 
-  def handle_info({:overlay_set_live}, socket) do
-    # IO.inspect "kljlkjlkj"
-    # socket =
-    #   socket
-    #   |> assign(overlay: overlay)
-    #   |> assign(points_tracker: [])
+  def handle_info({:overlay_set_live, overlay}, socket) do
+    socket =
+      socket
+      |> assign(overlay: overlay)
+      |> assign(points_tracker: [])
     {:noreply, socket}
   end
 
