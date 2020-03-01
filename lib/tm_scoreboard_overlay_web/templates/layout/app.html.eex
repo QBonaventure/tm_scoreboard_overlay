@@ -16,7 +16,7 @@
           <%= live_render(@conn, TMSOWeb.UserSessionLive) %>
         </div>
         <a href="/" id="app-logo">
-          Trackmania Stream Overlay
+          Trackmania Scoreboard Overlay
         </a>
 
         <%= if TMSOWeb.AuthView.user_logged_in? @conn do %>
