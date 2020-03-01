@@ -53,7 +53,7 @@
         <label>Players/team
           <%= select sm, :players_per_team, 1..5 %>
         </label>
-        <label>Map
+        <label>MX ID
           <%= text_input sm, :map_id, class: "submatch-map-input" %>
         </label>
         <%= tag(:input, type: "button", value: "X", phx_click: "remove-submatch", class: "submatch-remover", phx_value_smid: sm.id) %>
