@@ -9,7 +9,7 @@
     <%= csrf_meta_tag() %>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
-  <body>
+  <body id="live-overlay">
     <main role="main" class="container">
       <%= render @view_module, @view_template, assigns %>
     </main>
