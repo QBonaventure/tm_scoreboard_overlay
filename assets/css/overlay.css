@@ -1,0 +1,217 @@
+img#overlay-foreground {
+  z-index: 100;
+  position: relative;
+}
+
+img#overlay-background {
+  position: relative;
+  top: -81px;
+  z-index: 50;
+}
+
+#overlay-main-score {
+  height: 46px;
+  position: absolute;
+  top: -50px;
+  width: 96px;
+  left: 30px;
+}
+
+#overlay-main-score div {
+  height: 100%;
+  width: 47px;
+  position: absolute;
+}
+
+#overlay-main-score div.score-team-b {
+  right: 0;
+}
+
+#overlay-main-score span.score {
+  width: 100%;
+  display: inline-block;
+  font-size: 32px;
+  line-height: 40px;
+  top: -3px;
+  position: relative;
+}
+
+#overlay-main-score .overall-score {
+  font-size: 14px;
+  width: 100%;
+  position: relative;
+  top: -27px;
+}
+
+
+
+
+#match_overlay_settings_team_a_id {
+  position: absolute;
+  left: 4px;
+  top: 66px;
+  width: 230px;
+}
+
+#match_overlay_settings_team_b_id {
+  position: absolute;
+  top: 66px;
+  left: 406px;
+  width: 230px;
+}
+
+
+div#team-logos {
+  float: left;
+  position: relative;
+  top: -149px;
+  left: 13px;
+  height: 46px;
+  overflow: hidden;
+  width: 593px;
+  z-index: 70;
+}
+
+
+div#team-logos div {
+  height: 46px;
+  width: 116px;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  left: 1px;
+}
+
+div#team-logos div#team-b-logo-container {
+  left: 477px;
+}
+
+
+div#team-logos img {
+  position: absolute;
+  top: -25px;
+  width: 100%;
+}
+
+div#team-logos span {
+    position: absolute;
+    font-size: 37px;
+    font-weight: bold;
+    color: #555;
+    top: -5px;
+}
+
+#team-logos #team-a-logo {
+}
+
+#team-logos #team-a-shortname {
+  left: 117px;
+  width: 128px;
+  text-align: center;
+  color:
+  white;
+  text-shadow: 0 0 7px
+  black;
+}
+
+#overlay-preview .team-color {
+  height: 46px;
+  position: absolute;
+  width: 128px;
+  top: 14px;
+  z-index: 50;
+}
+
+#overlay-preview .team-a.team-color {
+  left: 150px;
+}
+
+#overlay-preview .team-b.team-color {
+  left: 382px;
+}
+
+div#team-logos img#team-b-logo {
+}
+
+#team-logos #team-b-shortname {
+  right: 116px;
+  width: 128px;
+  text-align: center;
+  color:
+  white;
+  text-shadow: 0 0 7px
+  black;
+}
+
+
+#submatches-backgrounds {
+  /* float: left; */
+  position: relative;
+  top: -145px;
+  left: 230px;
+  width: 156px
+}
+
+#submatches-backgrounds img {
+  float: left;
+  margin-top: -4px;
+}
+
+
+.submatch-bar {
+  position: relative;
+  float: left;
+  height: 33px;
+}
+
+.submatch-bar .max-points {
+  float: left;
+  top: -2px;
+  position: absolute;
+  font-weight: bold;
+  left: 75px;
+  font-size: 14px;
+}
+
+.submatch-bar .players-per-team {
+  float: left;
+  top: 11px;
+  position: absolute;
+  font-weight: bold;
+  left: 67px;
+  font-size: 14px;
+}
+
+
+section#live-link {
+  clear: both;
+}
+
+section#overlays-list {
+  clear: both;
+  padding-top: 85px;
+}
+
+
+section#tracker-layer {
+  position: absolute;
+  top: 64px;
+  left: 252px;
+  width: 152px;
+  font-size: 24px;
+  color: white;
+  text-shadow: 0px 0px 5px black;
+  z-index: 150;
+}
+
+section div.submatch-points {
+  height: 33px;
+  margin-top: -2px;
+}
+
+
+section#tracker-layer span {
+  display: inline-block;
+  width: 76px;
+  text-align: center;
+}
