@@ -10,7 +10,7 @@ defmodule TMSOWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :blog do
+  pipeline :live_overlay do
     plug :put_layout, {TMSOWeb.LayoutView, "overlay-live.html"}
   end
 
@@ -31,7 +31,7 @@ defmodule TMSOWeb.Router do
   end
 
   scope "/", TMSOWeb do
-    pipe_through [:browser, :blog]
+    pipe_through [:browser, :live_overlay]
     live "/:user_id/live", OverlayLive
   end
 
