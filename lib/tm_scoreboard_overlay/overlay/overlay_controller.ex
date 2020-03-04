@@ -77,7 +77,7 @@ defmodule TMSO.OverlayController do
           end
         end)
 
-    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:trackers_update, updated_sms})
+    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(state.overlay.user_id), {:trackers_update, updated_sms})
     state = Map.put(state, :points_tracker, updated_sms)
 
     {:reply, state, state}
@@ -96,7 +96,7 @@ defmodule TMSO.OverlayController do
         end
       end)
 
-    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:trackers_update, updated_sm})
+    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(state.overlay.user_id), {:trackers_update, updated_sm})
     state = Map.put(state, :points_tracker, updated_sm)
 
     {:reply, state, state}

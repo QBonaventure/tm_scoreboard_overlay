@@ -69,7 +69,7 @@ defmodule TMSOWeb.OverlayList do
       {:substractpoint, smid, team}
     )
 
-    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:trackers_update, new_state.points_tracker})
+    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(socket.assigns.overlay.user_id), {:trackers_update, new_state.points_tracker})
     {:noreply, assign(socket, points_tracker: new_state.points_tracker)}
   end
 
@@ -80,7 +80,7 @@ defmodule TMSOWeb.OverlayList do
       server = {:global, OverlayController.server_name(user_id)}
       :ok = GenServer.stop(server)
       socket = assign(socket, overlay: nil)
-      Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:unset_live})
+      Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(user_id), {:unset_live})
     end
 
     get_overlay_by_id(socket.assigns.overlays, params["oid"])
@@ -103,7 +103,7 @@ defmodule TMSOWeb.OverlayList do
     live_ov = get_overlay_by_id(socket.assigns.overlays, params["oid"])
 
     OverlayController.start live_ov
-    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:overlay_set_live, live_ov})
+    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(live_ov.user_id), {:overlay_set_live, live_ov})
 
     socket =
       socket
@@ -114,7 +114,7 @@ defmodule TMSOWeb.OverlayList do
   end
 
   def handle_event("activate-submatch", params, socket) do
-    # Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:activate_submatch, params["smid"]})
+    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(socket.assigns.overlay.user_id), {:activate_submatch, params["smid"]})
 
     tracker = GenServer.call(
       {:global, OverlayController.server_name(socket.assigns.overlay)},
