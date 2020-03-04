@@ -114,13 +114,18 @@ defmodule TMSOWeb.OverlayList do
   end
 
   def handle_event("activate-submatch", params, socket) do
-    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:activate_submatch, params["smid"]})
+    # Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(), {:activate_submatch, params["smid"]})
 
-    upd_tracker =
-      socket.assigns.points_tracker
-      |> Enum.map(&Map.put(&1, :active?, &1.smid == params["smid"]))
-    assign(socket, points_tracker: upd_tracker)
-    {:noreply, socket}
+    tracker = GenServer.call(
+      {:global, OverlayController.server_name(socket.assigns.overlay)},
+      {:activate_submatch, params["smid"]}
+    )
+
+    # upd_tracker =
+    #   socket.assigns.points_tracker
+    #   |> Enum.map(&Map.put(&1, :active?, &1.smid == params["smid"]))
+
+    {:noreply, assign(socket, points_tracker: tracker)}
   end
 
 end

@@ -5,15 +5,15 @@
       nil -> %{}
       _ -> @points_tracker
     end %>
-    <%= if Map.has_key?(pt, :winner) == false, do:
+    <%= if Map.get(pt, :active?, false) and Map.has_key?(pt, :winner) == false, do:
       tag :input, type: "button", value: "+", "phx-click": "add-point", "phx-value-smid": @submatch.id, "phx-value-team": "a", class: "add" %>
-    <%= if Map.has_key?(pt, :winner) != true or Map.get(pt, :winner) == :team_a, do:
+    <%= if Map.get(pt, :active?, false) and Map.has_key?(pt, :winner) != true  or Map.get(pt, :winner) == :team_a, do:
        tag :input, type: "button", value: "-", "phx-click": "substract-point", "phx-value-smid": @submatch.id, "phx-value-team": "a", class: "substract" %>
   </div>
   <div class="team-b">
-    <%= if Map.has_key?(pt, :winner) == false, do:
+    <%= if Map.get(pt, :active?, false) and Map.has_key?(pt, :winner) == false, do:
       tag :input, type: "button", value: "+", "phx-click": "add-point", "phx-value-smid": @submatch.id, "phx-value-team": "b", class: "add" %>
-    <%= if Map.has_key?(pt, :winner) != true or Map.get(pt, :winner) == :team_b, do:
+    <%= if Map.get(pt, :active?, false) and Map.has_key?(pt, :winner) != true or Map.get(pt, :winner) == :team_b, do:
       tag :input, type: "button", value: "-", "phx-click": "substract-point", "phx-value-smid": @submatch.id, "phx-value-team": "b", class: "substract" %>
   </div>
 

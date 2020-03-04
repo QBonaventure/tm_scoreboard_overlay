@@ -16,6 +16,11 @@ defmodule TMSO.OverlayController do
       GenServer.stop(pid)
     end
 
+    sm =
+      Enum.map(overlay.submatches, &Map.put(&1, :active?, false))
+
+    overlay = Map.put(overlay, :submatches, sm)
+
     GenServer.start(__MODULE__, %{overlay: overlay}, [name: {:global, server_name}])
   end
 
@@ -95,6 +100,18 @@ defmodule TMSO.OverlayController do
     state = Map.put(state, :points_tracker, updated_sm)
 
     {:reply, state, state}
+  end
+
+
+  def handle_call({:activate_submatch, smid}, _from, state) do
+    points_tracker =
+      state.points_tracker
+      |> Enum.map(&Map.put(&1, :active?, &1.smid == smid))
+
+
+    state = Map.put(state, :points_tracker, points_tracker)
+
+    {:reply, points_tracker, state}
   end
 
 
