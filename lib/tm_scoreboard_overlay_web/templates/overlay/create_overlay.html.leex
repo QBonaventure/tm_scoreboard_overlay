@@ -41,6 +41,14 @@
     <%= error_tag f, :team_b_id %>
   </label>
 
+  <div id="creat-overlay-match-settings-subform">
+    <%= inputs_for f, :settings, fn settings -> %>
+      <label>Overall bonus point?
+        <%= checkbox settings, :overall_bonus_point? %>
+      </label>
+    <% end %>
+  </div>
+
   <div id="create-overlay-submatches-subform">
     <%= inputs_for f, :submatches, fn sm -> %>
       <div class="create-overlay-form-submatch">

@@ -92,7 +92,14 @@ defmodule TMSOWeb.CreateOverlayLive do
 
   def handle_event("add-submatch", params, socket) do
     changeset = socket.assigns.changeset
+    settings_chgset = Map.get(changeset.changes, :settings, nil)
     data = changeset.changes
+
+    data =
+      case settings_chgset do
+        nil -> Map.delete(data, :settings)
+        _ -> Map.put(data, :settings, settings_chgset.changes)
+      end
 
     current_submatches =
       Map.get(data, :submatches, [])

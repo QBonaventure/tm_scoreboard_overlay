@@ -1,9 +1,10 @@
 defmodule TMSO.PointsTracker do
 
-  def get_teams_score_results(trackers) do
+  def get_teams_score_results(trackers, match_settings) do
+
       %{team_a: %{points: 0, score: 0}, team_b: %{points: 0, score: 0}}
       |> calculate_points(trackers)
-      |> grant_overall_points_bonus
+      |> grant_overall_points_bonus match_settings
   end
 
 
@@ -23,16 +24,28 @@ defmodule TMSO.PointsTracker do
   end
 
 
-  defp grant_overall_points_bonus({ended?, results}) do
-    case Enum.all?(ended?, & &1) and results.team_a.points != results.team_b.points do
+  defp grant_overall_points_bonus({ended?, results}, match_settings) do
+    case match_settings.overall_bonus_point? and Enum.all?(ended?, & &1)
+    do
       false ->
         results
       true ->
-        case results.team_a.points > results.team_b.points do
-          true -> Kernel.put_in(results, [:team_a, :score], results.team_a.score + 1)
-          false -> Kernel.put_in(results, [:team_b, :score], results.team_b.score + 1)
+        case which_team_won?(results) do
+          :team_a -> Kernel.put_in(results, [:team_a, :score], results.team_a.score + 1)
+          :team_b -> Kernel.put_in(results, [:team_b, :score], results.team_b.score + 1)
+          :none -> results
         end
     end
   end
+
+
+  defp which_team_won?(%{team_a: %{points: team_a_pts}, team_b: %{points: team_b_pts}})
+    when team_a_pts == team_b_pts, do: :none
+
+  defp which_team_won?(%{team_a: %{points: team_a_pts}, team_b: %{points: team_b_pts}})
+    when team_a_pts > team_b_pts, do: :team_a
+
+  defp which_team_won?(%{team_a: %{points: team_a_pts}, team_b: %{points: team_b_pts}}),
+    do: :team_b
 
 end

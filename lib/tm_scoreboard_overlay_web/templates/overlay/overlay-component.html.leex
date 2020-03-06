@@ -39,7 +39,7 @@
 
 <section id="tracker-layer">
   <div id="overlay-main-score">
-    <% results = TMSO.PointsTracker.get_teams_score_results(@points_tracker) %>
+    <% results = TMSO.PointsTracker.get_teams_score_results(@points_tracker, @overlay.settings) %>
 
     <div class="score-team-a">
       <span class="score"><%= results.team_a.score %></span>
