@@ -4,7 +4,8 @@ defmodule TMSOWeb.OverlayLive do
   alias TMSO.{OverlayController}
   alias TMSO.ExternalService.{TMX,Dedimania,Maniaplanet}
 
-  def topic(user_id) when is_integer(user_id), do: "overlay_live_"<>Integer.to_string user_id
+  def topic(user_id) when is_integer(user_id),
+    do: "overlay_live_"<>Integer.to_string user_id
 
 
   def render(assigns) do
@@ -23,7 +24,7 @@ defmodule TMSOWeb.OverlayLive do
           overlay_state = GenServer.call(pid, {:get_overlay_state})
           {overlay_state.overlay, overlay_state.points_tracker}
       end
-IO.inspect topic(user_id)
+
     Phoenix.PubSub.subscribe(TMSO.PubSub, topic(user_id))
 
     socket =
@@ -72,10 +73,8 @@ IO.inspect topic(user_id)
     {:noreply, socket}
   end
 
-
   def handle_info({:trackers_update, trackers}, socket) do
     {:noreply, assign(socket, points_tracker: trackers)}
   end
-
 
 end
