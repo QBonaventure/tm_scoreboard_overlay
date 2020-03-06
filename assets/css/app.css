@@ -213,6 +213,18 @@ label#team_b_selector .help-block {
 }
 
 
+div#creat-overlay-match-settings-subform,
+div#create-overlay-submatches-subform {
+  position: relative;
+  top: -100px;
+}
+
+div#creat-overlay-match-settings-subform {
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+
 
 form#create-overlay input,
 form#create-overlay select {
@@ -275,6 +287,7 @@ div#create-overlay-form-controls input#create-overlay-form-cancel-button {
 form#create-overlay input.submatch-map-input {
   width: 80px;
 }
+
 
 
 
