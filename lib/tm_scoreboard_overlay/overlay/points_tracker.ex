@@ -1,7 +1,6 @@
 defmodule TMSO.PointsTracker do
 
   def get_teams_score_results(trackers, match_settings) do
-
       %{team_a: %{points: 0, score: 0}, team_b: %{points: 0, score: 0}}
       |> calculate_points(trackers)
       |> grant_overall_points_bonus match_settings
