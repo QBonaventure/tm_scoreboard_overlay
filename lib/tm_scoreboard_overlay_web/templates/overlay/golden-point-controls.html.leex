@@ -1,0 +1,8 @@
+<div class="golden-point-controls">
+  <%= case Map.get(@overlay, :gp_winning_team, nil) do
+      team when team in [:team_a, :team_b] -> render TMSOWeb.OverlayView, "gp-controls-substract.html", team: team
+      nil -> render TMSOWeb.OverlayView, "gp-controls-add.html"
+      _ -> nil
+  end %>
+
+</div>

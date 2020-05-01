@@ -1,4 +1,4 @@
-defmodule TMSOWeb.OverlayLive do
+defmodule TMSOWeb.OverlayLiveSummary do
   use Phoenix.LiveView
   alias TMSOWeb.OverlayView
   alias TMSO.{OverlayController}
@@ -9,7 +9,7 @@ defmodule TMSOWeb.OverlayLive do
 
 
   def render(assigns) do
-    OverlayView.render("overlay-live.html", assigns)
+    OverlayView.render("overlay-live-summary.html", assigns)
   end
 
 
@@ -25,13 +25,32 @@ defmodule TMSOWeb.OverlayLive do
           {overlay_state.overlay, overlay_state.points_tracker}
       end
 
+      maps_info =
+        Enum.map(overlay_state.submatches, fn sm ->
+          pt = Enum.find(points_tracker, & &1.smid == sm.id) |> IO.inspect
+          map_info = sm |> Map.get(:map_id) |> TMX.get_map
+          world_record = Dedimania.get_world_record map_info.uid
+          %{
+            smid: sm.id,
+            name: map_info.name,
+            author: map_info.author,
+            world_record: world_record.time,
+            wr_holder: world_record.player,
+            players_per_team: sm.players_per_team,
+            max_points: sm.max_points,
+            tennis_mode?: pt.tennis_mode?,
+            winner: pt.winner,
+            team_a_pts: pt.team_a,
+            team_b_pts: pt.team_b,
+          }
+      end)
+
     Phoenix.PubSub.subscribe(TMSO.PubSub, topic(user_id))
 
     socket =
       socket
       |> assign(overlay: overlay_state)
-      |> assign(points_tracker: points_tracker)
-      |> assign(map_info: nil)
+      |> assign(maps_info: maps_info)
 
     {:ok, socket}
   end
@@ -46,24 +65,6 @@ defmodule TMSOWeb.OverlayLive do
     {:noreply, socket}
   end
 
-  def handle_info({:activate_submatch, smid}, socket) do
-    map =
-      Enum.find(socket.assigns.overlay.submatches, & &1.id == smid)
-      |> Map.get(:map_id)
-      |> TMX.get_map
-
-    world_record = Dedimania.get_world_record(map.uid)
-    map_info = %{
-      name: map.name,
-      author: map.author,
-      world_record: world_record.time,
-      wr_holder: world_record.player
-    }
-
-    {:noreply, assign(socket, map_info: map_info)}
-  end
-
-
   def handle_info({:overlay_set_live, overlay}, socket) do
     socket =
       socket
@@ -71,10 +72,6 @@ defmodule TMSOWeb.OverlayLive do
       |> assign(points_tracker: [])
       |> assign(map_info: nil)
     {:noreply, socket}
-  end
-
-  def handle_info({:golden_point_update, overlay}, socket) do
-    {:noreply, assign(socket, overlay: overlay)}
   end
 
   def handle_info({:trackers_update, trackers}, socket) do

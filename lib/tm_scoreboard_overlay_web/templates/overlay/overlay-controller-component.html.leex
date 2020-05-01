@@ -1,4 +1,10 @@
 <section id="overlay-control-panel">
   <%= Enum.map(@overlay.submatches, fn sm ->
     render TMSOWeb.OverlayView, "submatch-controls.html", submatch: sm, points_tracker: Enum.find(@points_tracker, fn pt -> pt.smid == sm.id end) end) %>
+  <div>
+    
+  <%= if TMSO.PointsTracker.need_golden_point?(@points_tracker, @overlay.settings) do
+    render TMSOWeb.OverlayView, "golden-point-controls.html", overlay: @overlay, points_tracker: @points_tracker
+  end %>
+  </div>
 </section>

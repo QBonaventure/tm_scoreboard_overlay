@@ -215,3 +215,19 @@ section#tracker-layer span {
   width: 76px;
   text-align: center;
 }
+
+
+
+div.golden-point-controls {
+  position: absolute;
+  top: 66px;
+  left: 50px;
+  width: 152px;
+}
+
+
+div.golden-point-controls span {
+  display: inline-block;
+  width: 43px;
+  text-align: center;
+}

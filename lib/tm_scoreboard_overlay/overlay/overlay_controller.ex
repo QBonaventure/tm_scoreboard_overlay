@@ -57,6 +57,25 @@ defmodule TMSO.OverlayController do
   end
 
 
+  def handle_call({:add_golden_point, team}, _from, state) do
+    overlay = Map.put(state.overlay, :gp_winning_team, team)
+
+    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(state.overlay.user_id), {:golden_point_update, overlay})
+    state = Map.put(state, :overlay, overlay)
+
+    {:reply, state, state}
+  end
+
+
+  def handle_call({:substract_golden_point}, _from, state) do
+    overlay = Map.put(state.overlay, :gp_winning_team, nil)
+
+    Phoenix.PubSub.broadcast(TMSO.PubSub, OverlayLive.topic(state.overlay.user_id), {:golden_point_update, overlay})
+    state = Map.put(state, :overlay, overlay)
+
+    {:reply, state, state}
+  end
+
 
   def handle_call({:addpoint, smid, team}, _from, state) do
     updated_sms =

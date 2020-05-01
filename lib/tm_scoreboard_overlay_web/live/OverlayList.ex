@@ -74,6 +74,27 @@ defmodule TMSOWeb.OverlayList do
   end
 
 
+
+  def handle_event("add-golden-point", params, socket) do
+    new_state =
+      case params["team"] do
+        "a" -> GenServer.call({:global, OverlayController.server_name(socket.assigns.overlay)}, {:add_golden_point, :team_a})
+        "b" -> GenServer.call({:global, OverlayController.server_name(socket.assigns.overlay)}, {:add_golden_point, :team_b})
+      end
+
+    {:noreply, assign(socket, overlay: new_state.overlay)}
+  end
+
+
+  def handle_event("substract-golden-point", params, socket) do
+    new_state = GenServer.call({:global, OverlayController.server_name(socket.assigns.overlay)}, {:substract_golden_point})
+
+    {:noreply, assign(socket, overlay: new_state.overlay)}
+  end
+
+
+
+
   def handle_event("delete-overlay", params, socket) do
     if socket.assigns.overlay != nil do
       user_id = socket.assigns.overlay.user_id
