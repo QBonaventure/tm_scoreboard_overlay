@@ -24,8 +24,6 @@ defmodule TMSO.Repo.Migrations.AddAndUpdateTeamsLogos do
       {"Power of Teamplay", [logo_path: "images/pot.png", color: "#4b5f9e"]}
     ]
     |> Enum.each(fn {name, changes} ->
-      IO.inspect name
-      IO.inspect changes
       from(t in TMSO.Team, where: t.name == ^name)
       |> TMSO.Repo.update_all(set: changes)
     end)
