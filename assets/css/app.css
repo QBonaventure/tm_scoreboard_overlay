@@ -362,3 +362,15 @@ section#overlay-control-panel .substract {
   background-color: red;
   border-color: red;
 }
+
+
+footer span.footer-link {
+  position: absolute;
+  padding: 5px;
+}
+
+
+footer span.footer-link a {
+  color: black;
+  text-decoration: underline;
+}
