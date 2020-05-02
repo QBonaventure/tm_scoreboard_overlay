@@ -219,15 +219,45 @@ section#tracker-layer span {
 
 
 div.golden-point-controls {
-  position: absolute;
-  top: 66px;
+  position: relative;
+  top: 34px;
   left: 50px;
   width: 152px;
 }
 
 
+div.golden-point-controls * {
+  position: relative;
+  float: left;
+}
+
+div.golden-point-controls input {
+  z-index: 20;
+}
+
+div.golden-point-controls input[phx-value-team="a"] {
+  float: left;
+  position: absolute;
+  left: 0px;
+}
+
+div.golden-point-controls input[phx-value-team="b"] {
+  float: right;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+
 div.golden-point-controls span {
+  position: absolute;
   display: inline-block;
-  width: 43px;
+  width: 56px;
+  height: 38px;
   text-align: center;
+  top: 0px;
+  left: 48px;
+  background-color: gold;
+  padding-top: 8px;
+  z-index: 10;
 }
