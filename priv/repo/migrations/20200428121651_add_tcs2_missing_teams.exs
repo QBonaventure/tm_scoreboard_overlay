@@ -20,7 +20,7 @@ defmodule TMSO.Repo.Migrations.AddTcs2MissingTeams do
             name: "æ",
             shortname: "AE",
             color: "#054e05",
-            logo_path: "images/ae.png"
+            logo_path: "images/polaria.png"
     },
         %{
             name: "Blackbird",
