@@ -1,7 +1,7 @@
 defmodule TMSO.ExternalService.TMX do
 
-  @search_url "https://tm.mania-exchange.com/tracksearch2/search?api=on&format=json&trackname="
-  @get_map_url "https://api.mania-exchange.com/tm/maps/"
+  @search_url "https://trackmania.exchange/tracksearch2/search?api=on&format=json&trackname="
+  @get_map_url "https://trackmania.exchange/api/tracks/get_track_info/multi/"
 
 
   def find_map(name) do
