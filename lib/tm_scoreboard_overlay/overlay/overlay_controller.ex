@@ -143,7 +143,8 @@ defmodule TMSO.OverlayController do
         tennis_mode?: sm.tennis_mode,
         max_points: sm.max_points,
         team_a: 0,
-        team_b: 0
+        team_b: 0,
+        points_to_earn: sm.win_pts_granted
       }
     end)
 

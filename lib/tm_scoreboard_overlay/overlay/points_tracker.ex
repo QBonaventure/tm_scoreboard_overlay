@@ -46,7 +46,7 @@ defmodule TMSO.PointsTracker do
       acc =
         case Map.get(tracker, :winner, nil) do
           nil -> {false, acc}
-          winner -> {true, Kernel.put_in(acc, [winner, :score], acc[winner][:score] + 1)}
+          winner -> {true, Kernel.put_in(acc, [winner, :score], acc[winner][:score] + tracker.points_to_earn)}
         end
     end)
   end
@@ -67,10 +67,12 @@ defmodule TMSO.PointsTracker do
 
 
   defp which_team_won?(%{team_a: %{points: team_a_pts}, team_b: %{points: team_b_pts}})
-    when team_a_pts == team_b_pts, do: :none
+    when team_a_pts == team_b_pts,
+    do: :none
 
   defp which_team_won?(%{team_a: %{points: team_a_pts}, team_b: %{points: team_b_pts}})
-    when team_a_pts > team_b_pts, do: :team_a
+    when team_a_pts > team_b_pts,
+    do: :team_a
 
   defp which_team_won?(%{team_a: %{points: team_a_pts}, team_b: %{points: team_b_pts}}),
     do: :team_b

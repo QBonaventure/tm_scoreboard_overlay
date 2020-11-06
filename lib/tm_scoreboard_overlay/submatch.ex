@@ -8,9 +8,10 @@ defmodule TMSO.Submatch do
     field :max_points, :integer
     field :players_per_team, :integer
     field :map_id, :integer
+    field :win_pts_granted, :integer, default: 1
   end
 
-  @req_fields [:tennis_mode, :max_points, :players_per_team]
+  @req_fields [:tennis_mode, :max_points, :players_per_team, :win_pts_granted]
   def changeset(%Submatch{} = submatch, data \\ %{}) do
     submatch
     |> change
