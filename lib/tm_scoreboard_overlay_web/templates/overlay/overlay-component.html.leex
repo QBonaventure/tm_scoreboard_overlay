@@ -45,7 +45,7 @@
       <span class="score"><%= results.team_a.score %></span>
       <span class="overall-score"><%= results.team_a.points %><%= if Map.get(@overlay, :gp_winning_team, nil) == :team_a, do: "+1" %></span>
     </div>
-    <% IO.inspect @overlay %>
+
     <div class="score-team-b">
       <span class="score"><%= results.team_b.score %></span>
       <span class="overall-score"><%= results.team_b.points %><%= if Map.get(@overlay, :gp_winning_team, nil) == :team_b, do: "+1" %></span>

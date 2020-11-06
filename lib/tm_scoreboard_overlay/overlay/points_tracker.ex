@@ -37,6 +37,7 @@ defmodule TMSO.PointsTracker do
 
 
   defp calculate_points(results, trackers) do
+    IO.inspect trackers
     Enum.map_reduce(trackers, results, fn tracker, acc ->
       acc =
         acc

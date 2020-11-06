@@ -27,7 +27,7 @@ defmodule TMSOWeb.OverlayLiveSummary do
 
       maps_info =
         Enum.map(overlay_state.submatches, fn sm ->
-          pt = Enum.find(points_tracker, & &1.smid == sm.id) |> IO.inspect
+          pt = Enum.find(points_tracker, & &1.smid == sm.id)
           map_info = sm |> Map.get(:map_id) |> TMX.get_map
           world_record = Dedimania.get_world_record map_info.uid
           %{
