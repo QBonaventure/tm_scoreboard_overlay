@@ -213,13 +213,13 @@ label#team_b_selector .help-block {
 }
 
 
-div#creat-overlay-match-settings-subform,
+div#create-overlay-match-settings-subform,
 div#create-overlay-submatches-subform {
   position: relative;
   top: -100px;
 }
 
-div#creat-overlay-match-settings-subform {
+div#create-overlay-match-settings-subform {
   overflow: auto;
   margin-bottom: 20px;
 }
@@ -243,20 +243,27 @@ form#create-overlay input.submatch-max-points-input {
   text-align: center;
 }
 
-/* #create-overlay-submatches-subform {
-  position: absolute;
-  top: 210px;
-} */
 
 #create-overlay-submatches-subform label,
 #create-overlay-submatches-subform input.submatch-remover {
   height: 30px;
   margin-bottom: 10px;
-  margin-right: 25px;
+  margin-right: 15px;
 }
 
 #create-overlay-submatches-subform input.submatch-remover {
   line-height: 30px;
+}
+
+#create-overlay-submatches-subform label {
+  font-size: 12px;
+  top: 6px;
+  position: relative;
+  height: 40px;
+}
+
+#create-overlay-submatches-subform .create-overlay-form-submatch {
+  height: 50px;
 }
 
 
