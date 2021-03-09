@@ -5,7 +5,7 @@ defmodule TMSO.Repo.Migrations.AddCps20Teams do
   def up do
     TMSO.Repo.insert_all(TMSO.Team, new_teams_list)
 
-    TMSO.Repo.get_by(TMSO.Team, shortname:"LDG")
+    TMSO.Repo.get_by(TMSO.Team, shortname: "LDG")
     |> Ecto.Changeset.change(%{logo_path: "images/loading_tm.jpg", color: "#199a8f"})
     |> TMSO.Repo.update
   end
@@ -17,7 +17,7 @@ defmodule TMSO.Repo.Migrations.AddCps20Teams do
       |> TMSO.Repo.delete_all
     end)
 
-    TMSO.Repo.get_by(TMSO.Team, shortname:"LDG")
+    TMSO.Repo.get_by(TMSO.Team, shortname: "LDG")
     |> Ecto.Changeset.change(%{logo_path: "images/Logo_Trackmania.png", color: "#ffffff"})
     |> TMSO.Repo.update
   end
